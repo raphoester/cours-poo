@@ -1,5 +1,4 @@
 <?php 
-
     class Voiture{
         private $_id;
         private $_marque;
@@ -19,6 +18,15 @@
             $this->setKm($km);
             $this->setImg($img);
             $this->setBoite($boite);
+        }
+
+        public function hydrate(array $donnees){
+            foreach ($donnees as $cle => $valeur){
+                $methode = 'set'.ucfirst($cle);
+                if(method_exists($this, $methode)){
+                    $this->$methode($valeur);
+                }
+            }
         }
         
         //constantes de classe

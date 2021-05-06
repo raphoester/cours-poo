@@ -27,19 +27,22 @@
     //créer un manager de voitures
     $vm = new VoituresManager();
     //récupérer un tableau de voitures
-    $voitures = $vm->selectionner(1)
+    $voiture = $vm->selectionner(1);
     //l'afficher en brut (provisoire)
-    echo "<pre>";
-    print_r($voitures);
-    echo "</pre>";
+    // echo "<pre>";
+    // print_r($voiture);
+    // echo "</pre>";
+    $voiture1 = new Voiture(1, "0", "0", "0", 0, '0', 0);
+    $voiture1->hydrate($voiture);
 
     //création artificielle de plusieurs instances d'objets de la classe voiture, pour l'affichage
-    $voiture1 = new Voiture(1, "Audi", "50CV", "A3", 4000, 'img/audi_a3.jpg', Voiture::TRANSMISSION_MAN);
-    $voiture2 = new Voiture(2, "Opel", "70CV", "1900GT", 70000, 'img/opel_1900GT.jpg', Voiture::TRANSMISSION_MAN);
-    $voiture3 = new Voiture(3, "Chevrolet", "250CV", "Camaro", 35000, 'img/chevrolet_camaro.jpg', Voiture::TRANSMISSION_AUTO);
+    // $voiture1 = new Voiture(1, "Audi", "50CV", "A3", 4000, 'img/audi_a3.jpg', Voiture::TRANSMISSION_MAN);
+    // $voiture2 = new Voiture(2, "Opel", "70CV", "1900GT", 70000, 'img/opel_1900GT.jpg', Voiture::TRANSMISSION_MAN);
+    // $voiture3 = new Voiture(3, "Chevrolet", "250CV", "Camaro", 35000, 'img/chevrolet_camaro.jpg', Voiture::TRANSMISSION_AUTO);
     
     //transformation en tableau pour utiliser foreach
-    $voitures = array($voiture1, $voiture2, $voiture3);
+    //$voitures = array($voiture1, $voiture2, $voiture3);
+    $voitures = array($voiture1, $voiture1, $voiture1, $voiture1);
 
     ?>
 

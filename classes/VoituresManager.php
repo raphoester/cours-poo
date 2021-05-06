@@ -22,10 +22,16 @@
         //fonction qui permet de sélectionner une voiture à partir de son ID
         public function selectionner($id){
             //requête SQL
-            $resultat = $this->_pdo->query("SELECT * FROM voiture WHERE id_voiture = $id;");
+            $resultat = $this->_pdo->query("SELECT * FROM voiture WHERE id = $id;");
             //transformation du résultat en tableau
-            $resultat = $resultat->fetchAll();
+            $resultat = $resultat->fetch();
             //return du résultat
+            return $resultat;
+        }
+
+        public function selectionnerTout(){
+            $resultat = $this->_pdo->query("SELECT * FROM voiture;");
+            $resultat = $resultat->fetchAll();
             return $resultat;
         }
 
