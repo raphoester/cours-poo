@@ -7,6 +7,7 @@
         private $_km;
         private $_img;
         private $_moteur;
+        private $_boite;
 
         //constructeur
         //permet d'initialiser chaque instance de l'objet créé
