@@ -91,8 +91,10 @@
                 $this->_img = $img;
             }
         }
+        //on vérifie dans le setter que le paramètre (la boîte) correspond bien 
+        //à une des constantes définies à cet effet.
         public function setBoite($boite){
-            if(true)
+            if(in_array($boite, [self::TRANSMISSION_MAN, self::TRANSMISSION_AUTO]))
             {
                 $this->_boite = $boite;
             }
