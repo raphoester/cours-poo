@@ -29,22 +29,37 @@
     $voitures = array($voiture1, $voiture2, $voiture3);
     ?>
 
-    <div style="display:flex;">
-    <?php
-    foreach ($voitures as $voiture) {
-        ?>
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="<?php echo $voiture->getImg()?>" alt="Card image cap">
-                <div class="card-body">
-                    <p class="card-text"><strong><?php echo $voiture->getMarque()." ".$voiture->getModele()?></strong></p>
-                    <p> <?php echo $voiture->getPuissance()?> </p>
-                    <p> <?php echo $voiture->getKm() ?> KM </p>
-                    <p> Transmission : <?php echo $voiture->getBoite() ?> <p>
-                </div>
-            </div>
-        <?php
-    }
-    ?>
+    <div class="container">
+        <div class="title" style='margin-top: 100px; margin-bottom: 50px;'>
+            <h1>Liste des voitures</h1>
+        </div>
+        <div class="row g-2">
+            <?php
+            foreach ($voitures as $voiture) {
+                ?>
+                    <div class="col-6" style="width: 100px; margin-bottom: 20px;">
+                        <div class="p-3 border bg-light" style="display: flex;">
+                        <div style="margin-right: 100px;">
+                            <img style="width: 200px; object-fit: cover; height: 200px;" class="d-flex align-self-start" src="<?php echo $voiture->getImg()?>">
+                        </div>
+                        <div style="margin-top : 30px;">
+                            <h4><?php echo $voiture->getMarque()." ".$voiture->getModele()?></h4>
+                            <p> <?php echo $voiture->getPuissance()?> </p>
+                            <p> <?php echo $voiture->getKm() ?> KM </p>
+                            <p> Transmission : <?php echo $voiture->getBoite() ?> <p>
+                            <p><a href="<?php echo $voiture->getImg()?>">Détails</a></p>
+                        </div>
+                        </div>
+                        
+                    </div>
+                <?php
+            }
+            ?>
+        </div>
     </div>
+
+
+
+
 </body>
 </html>
