@@ -13,7 +13,7 @@
 
 
     
-    var_dump($bdd->query("Select * from voiture")->fetchAll());
+    
     require("classes/voiture.php");
 
     $voiture1 = new Voiture("Audi", "50CV", "A3", 4000, 'img/audi_a3.jpg');
@@ -22,6 +22,10 @@
 
 
     $voitures = array($voiture1, $voiture2, $voiture3);
+    ?>
+
+    <div style="display:flex;">
+    <?php
     foreach ($voitures as $voiture) {
         ?>
             <div class="card" style="width: 18rem;">
@@ -35,6 +39,7 @@
         <?php
     }
     ?>
+    </div>
 </body>
 </html>
 
