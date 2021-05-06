@@ -5,14 +5,16 @@
         private $_puissance;
         private $_modele;
         private $_km;
+        private $_img;
 
         //constructeur
         //permet d'initialiser chaque instance de l'objet créé
-        public function __construct($marque, $puissance, $modele, $km){
+        public function __construct($marque, $puissance, $modele, $km, $img){
             $this->setMarque($marque);
             $this->setPuissance($puissance);
             $this->setModele($modele);
             $this->setKm($km);
+            $this->setImg($img);
         }
 
         //GETTERS (accesseurs)
@@ -21,13 +23,16 @@
             return $this->_marque;
         }
         public function getPuissance(){
-            return $this->_Puissance;
+            return $this->_puissance;
         }
         public function getModele(){
-            return $this->_Modele;
+            return $this->_modele;
         }
         public function getKm(){
-            return $this->_Km;
+            return $this->_km;
+        }
+        public function getImg(){
+            return $this->_img;
         }
 
 
@@ -54,6 +59,12 @@
             if(is_integer($km) && $km >= 0)
             {
                 $this->_km = $km;
+            }
+        }
+        public function setImg($img){
+            if($img != "")
+            {
+                $this->_img = $img;
             }
         }
     }
