@@ -6,16 +6,25 @@
         private $_modele;
         private $_km;
         private $_img;
+        private $_moteur;
 
         //constructeur
         //permet d'initialiser chaque instance de l'objet créé
-        public function __construct($marque, $puissance, $modele, $km, $img){
+        public function __construct($marque, $puissance, $modele, $km, $img, $boite){
             $this->setMarque($marque);
             $this->setPuissance($puissance);
             $this->setModele($modele);
             $this->setKm($km);
             $this->setImg($img);
+            $this->setBoite($boite);
         }
+        
+        //constantes de classe
+        const TRANSMISSION_AUTO = 0;
+        const TRANSMISSION_MAN = 1;
+        //ERR_DATA : code d'erreur générique qui servira à chaque fois 
+        //qu'une erreur survient dans un getter
+        const ERR_DATA = "Null";
 
         //GETTERS (accesseurs)
         //permet d'accéder à la donnée de manière sécurisée
@@ -33,6 +42,21 @@
         }
         public function getImg(){
             return $this->_img;
+        }
+
+        //self : permettre d'accéder à une constante de classe,
+        //à l'intérieur de cette même classe.
+        //Ici, c'est l'équivalent de Voiture::CONSTANTE
+        public function getBoite(){
+            if($this->_boite == self::TRANSMISSION_AUTO){
+                return "Automatique";
+            }
+            else if ($this->_boite == self::TRANSMISSION_MAN) {
+                return "Manuelle";
+            }
+            else{
+                return self::ERR_DATA;
+            }
         }
 
 
@@ -65,6 +89,12 @@
             if($img != "")
             {
                 $this->_img = $img;
+            }
+        }
+        public function setBoite($boite){
+            if(true)
+            {
+                $this->_boite = $boite;
             }
         }
     }
