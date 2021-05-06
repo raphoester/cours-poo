@@ -7,11 +7,12 @@
         private $_km;
 
         //constructeur
+        //permet d'initialiser chaque instance de l'objet créé
         public function __construct($marque, $puissance, $modele, $km){
-            $this->_marque=$marque;
-            $this->_puissance=$puissance;
-            $this->_modele=$modele;
-            $this->_km=$km;
+            $this->setMarque($marque);
+            $this->setPuissance($puissance);
+            $this->setModele($modele);
+            $this->setKm($km);
         }
 
         //GETTERS (accesseurs)
@@ -31,6 +32,28 @@
 
 
         //SETTER (définisseurs)
-
-
+        public function setMarque($marque){
+            if($marque != "")
+            {
+                $this->_marque = $marque;
+            }
+        }
+        public function setPuissance($puissance){
+            if(str_ends_with($puissance, "CV"))
+            {
+                $this->_puissance = $puissance;
+            }
+        }
+        public function setModele($modele){
+            if($modele != "")
+            {
+                $this->_modele = $modele;
+            }
+        }
+        public function setKm($km){
+            if(is_integer($km) && $km >= 0)
+            {
+                $this->_km = $km;
+            }
+        }
     }
