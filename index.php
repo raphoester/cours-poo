@@ -11,6 +11,9 @@
 <body>
     <?php 
 
+
+    
+    var_dump($bdd->query("Select * from voiture")->fetchAll());
     require("classes/voiture.php");
 
     $voiture1 = new Voiture("Audi", "50CV", "A3", 4000, 'img/audi_a3.jpg');
