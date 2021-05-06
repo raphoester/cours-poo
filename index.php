@@ -22,8 +22,6 @@
     //on évite ainsi de spammer la fonction require().
     spl_autoload_register('chargerClasse');
 
-    echo Voiture::TRANSMISSION_AUTO;
-
     $voiture1 = new Voiture("Audi", "50CV", "A3", 4000, 'img/audi_a3.jpg', Voiture::TRANSMISSION_MAN);
     $voiture2 = new Voiture("Opel", "70CV", "1900GT", 70000, 'img/opel_1900GT.jpg', Voiture::TRANSMISSION_MAN);
     $voiture3 = new Voiture("Chevrolet", "250CV", "Camaro", 35000, 'img/chevrolet_camaro.jpg', Voiture::TRANSMISSION_AUTO);
