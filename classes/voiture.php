@@ -10,7 +10,7 @@
 
         //constructeur
         //permet d'initialiser chaque instance de l'objet créé
-        public function __construct($id, $marque, $puissance, $modele, $km, $img, $boite){
+        public function __construct($id="", $marque="", $puissance="", $modele="", $km="", $img="", $boite=""){
             $this->setId($id);
             $this->setMarque($marque);
             $this->setPuissance($puissance);
@@ -71,11 +71,20 @@
                 return self::ERR_DATA;
             }
         }
+        public function getBoiteBool(){
+            return $this->_boite;
+        }
 
 
         //SETTER (définisseurs)
         public function setId($id){
-            if(is_integer($id) && $id > 0){
+            if(!is_integer($id)){
+                try{
+                    $id = intval($id);
+                }
+                finally{}
+            } 
+            if($id > 0){
                 $this->_id = $id;
             }
         }
@@ -99,8 +108,13 @@
             }
         }
         public function setKm($km){
-            if(is_integer($km) && $km >= 0)
-            {
+            if(!is_integer($km)){
+                try{
+                    $km = intval($km);
+                }
+                finally{}
+            } 
+            if($km > 0){
                 $this->_km = $km;
             }
         }
@@ -113,6 +127,12 @@
         //on vérifie dans le setter que le paramètre (la boîte) correspond bien 
         //à une des constantes définies à cet effet.
         public function setBoite($boite){
+            if(!is_bool($boite)){
+                try{
+                    $boite = boolval($boite);
+                }
+                finally{}
+            }
             if(in_array($boite, [self::TRANSMISSION_MAN, self::TRANSMISSION_AUTO]))
             {
                 $this->_boite = $boite;

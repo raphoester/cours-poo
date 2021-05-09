@@ -1,7 +1,39 @@
 <?php
-var_dump($_POST); 
-?>
 
+    function chargerClasse($classe){
+        require('classes/'.$classe.'.php');
+    }
+
+    spl_autoload_register("chargerClasse");
+
+
+    if(isset($_POST["marque"])){
+        if(isset($_FILES)){
+            $nom = $_FILES['image']['name'];
+            $ext = substr(strrchr($nom, '.'), 1);
+            $cible = "img/".microtime(true).".".$ext;
+            
+            move_uploaded_file($_FILES['image']["tmp_name"], $cible);
+            $_POST["img"] = $cible;
+        }
+        $voiture = new Voiture();
+        $voiture->hydrate($_POST);
+
+        //on essaie de se connecter à la BDD
+        try{
+            $pdo = new PDO('mysql:host=localhost;dbname=voitures;charset=utf8', 'root', '');
+        }
+        //si erreur : on l'affiche
+        catch (Exception $e)
+        {
+            echo 'Erreur : ' . $e->getMessage();
+        }
+
+        $vm = new VoituresManager($pdo);
+        $vm->creer($voiture);
+    }
+
+?>
 
 
 <!DOCTYPE html>
@@ -25,7 +57,7 @@ var_dump($_POST);
                     <h1>Nouvelle voiture</h1>
                 </div>
                 <div class="card-body">
-                    <form action="" method="POST">
+                    <form action="" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="marque">Marque</label><br>
                             <input type="text" id="marque" name="marque"><br>
@@ -44,14 +76,18 @@ var_dump($_POST);
                         </div>
                         <div class='form-group'>
                             <label for="boite">Transmission</label>
-                            <div class="form-check" id="boite">
-                                <input class="form-check-input" type="radio" name="manu" id="flexRadioDefault1" checked>
+                            <div class="form-check" id="boite" name="boite">
+                                <input class="form-check-input" type="radio" name="boite" id="flexRadioDefault1" value="1" checked>
                                 <label class="form-check-label" for="manu">Manuelle</label>
                                 </div>
                                 <div class="form-check">
-                                <input class="form-check-input" type="radio" name="auto" id="flexRadioDefault2">
+                                <input class="form-check-input" type="radio" name="boite" id="flexRadioDefault2" value="0">
                                 <label class="form-check-label" for="auto">Automatique</label>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Image</label><br>
+                            <input type="file" id="image" name="image" accept="image/*"><br>
                         </div>
 
                         <div class="form-group">
