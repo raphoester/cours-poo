@@ -1,5 +1,5 @@
 <?php 
-    class VoituresManager{
+    class VehiculesManager{
 
         //attribut privé _pdo : permet de stocker les informations de connexion à la BDD.
         private $_pdo;
@@ -25,10 +25,10 @@
             //transformation du résultat en tableau
             $resultat = $resultat->fetch();
             //hydratation
-            $voitureObjet = new Voiture();
-            $voitureObjet->hydrate($resultat);
+            $vehiculeObjet = new Vehicule();
+            $vehiculeObjet->hydrate($resultat);
             //return du résultat
-            return $voitureObjet;
+            return $vehiculeObjet;
         }
 
         public function selectionnerTout(){
@@ -36,24 +36,24 @@
             $resultat = $resultat->fetchAll();
 
             $retour = array();
-            foreach ($resultat as $voiture){
-                $voitureObjet = new Voiture();
-                $voitureObjet->hydrate($voiture);
-                array_push($retour, $voitureObjet);
+            foreach ($resultat as $vehicule){
+                $vehiculeObjet = new Vehicule();
+                $vehiculeObjet->hydrate($vehicule);
+                array_push($retour, $vehiculeObjet);
             }
             return $retour;
         }
 
         //fonction qui va créer une nouvelle voiture dans la base de données, à partir d'un objet de la classe Voiture
-        public function creer(Voiture $voiture){
+        public function creer(Vehicule $vehicule){
             $sql = "INSERT INTO voiture (marque, puissance, modele, km, img, transmission)
             VALUES(
-                '".$voiture->getMarque()."',".
-                (!empty($voiture->getPuissance()) ? "'".$voiture->getPuissance()."'": 'NULL').",".
-                (!empty($voiture->getModele()) ? "'".$voiture->getModele()."'": "NULL").",".
-                (!empty($voiture->getKm()) ? $voiture->getKm(): "NULL").",".
-                (!empty($voiture->getImg()) ? "'".$voiture->getImg()."'": "NULL").",".
-                (!empty($voiture->getBoiteBool()) ? $voiture->getBoiteBool(): "NULL")."
+                '".$vehicule->getMarque()."',".
+                (!empty($vehicule->getPuissance()) ? "'".$vehicule->getPuissance()."'": 'NULL').",".
+                (!empty($vehicule->getModele()) ? "'".$vehicule->getModele()."'": "NULL").",".
+                (!empty($vehicule->getKm()) ? $vehicule->getKm(): "NULL").",".
+                (!empty($vehicule->getImg()) ? "'".$vehicule->getImg()."'": "NULL").",".
+                (!empty($vehicule->getBoiteBool()) ? $vehicule->getBoiteBool(): "NULL")."
             );";
             // echo $sql;
             $this->getPdo()->exec($sql);

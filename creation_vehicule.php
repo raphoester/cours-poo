@@ -16,8 +16,8 @@
             move_uploaded_file($_FILES['image']["tmp_name"], $cible);
             $_POST["img"] = $cible;
         }
-        $voiture = new Voiture();
-        $voiture->hydrate($_POST);
+        $vehicule = new Vehicule();
+        $vehicule->hydrate($_POST);
 
         //on essaie de se connecter à la BDD
         try{
@@ -54,7 +54,7 @@
         <div class="col-md-8 mx-auto ">
             <div class="card">
                 <div class="card-header">
-                    <h1>Nouvelle voiture</h1>
+                    <h1>Nouveau véhicule</h1>
                     <a href="./"><<<</a>
                 </div>
                 <div class="card-body">

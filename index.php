@@ -35,32 +35,32 @@
     }
 
     //créer un manager de voitures
-    $vm = new VoituresManager($pdo);
+    $vm = new VehiculesManager($pdo);
     //récupérer un tableau de voitures
-    $voitures = $vm->selectionnerTout();
+    $vehicules = $vm->selectionnerTout();
 
     ?>
 
     <div class="container">
         <div class="title mt-5 mb-4">
-            <h1>Liste des voitures<a href="creation_voiture.php">+</a></h1> 
+            <h1>Liste des véhicules<a href="creation_vehicule.php">+</a></h1> 
             
         </div>
         <div class="row g-2">
             <?php
-            foreach ($voitures as $voiture) {
+            foreach ($vehicules as $vehicule) {
                 ?>
                     <div class="col-6 mb-1" style="width: 100px;">
                         <div class="p-3 border bg-light" style="display: flex;">
                             <div style="margin-right: 100px;">
-                                <img style="width: 200px; object-fit: cover; height: 200px;" class="d-flex align-self-start img-fluid" src="<?php echo $voiture->getImg()?>">
+                                <img style="width: 200px; object-fit: cover; height: 200px;" class="d-flex align-self-start img-fluid" src="<?php echo $vehicule->getImg()?>">
                             </div>
                             <div style="margin-top : 30px;">
-                                <h4><?php echo $voiture->getMarque()." ".$voiture->getModele()?></h4>
-                                <p> <?php echo $voiture->getPuissance()?> </p>
-                                <p> <?php echo $voiture->getKm() ?> KM </p>
-                                <p> Transmission : <?php echo $voiture->getBoite() ?> <p>
-                                <p><a href="<?php echo $voiture->getImg()?>">Détails</a></p>
+                                <h4><?php echo $vehicule->getMarque()." ".$vehicule->getModele()?></h4>
+                                <p> <?php echo $vehicule->getPuissance()?> </p>
+                                <p> <?php echo $vehicule->getKm() ?> KM </p>
+                                <p> Transmission : <?php echo $vehicule->getBoite() ?> <p>
+                                <p><a href="<?php echo $vehicule->getImg()?>">Détails</a></p>
                             </div>
                         </div>
                     </div>
