@@ -7,10 +7,11 @@
         private $_km;
         private $_img;
         private $_boite;
+        private $_typeVehicule;
 
         //constructeur
         //permet d'initialiser chaque instance de l'objet créé
-        public function __construct($id="", $marque="", $puissance="", $modele="", $km="", $img="", $boite=""){
+        public function __construct($id="", $marque="", $puissance="", $modele="", $km="", $img="", $boite="", $typeVehicule=""){
             $this->setId($id);
             $this->setMarque($marque);
             $this->setPuissance($puissance);
@@ -18,6 +19,7 @@
             $this->setKm($km);
             $this->setImg($img);
             $this->setBoite($boite);
+            $this->setTypeVehicule($typeVehicule);
         }
 
         public function hydrate(array $donnees){
@@ -55,6 +57,9 @@
         }
         public function getImg(){
             return $this->_img;
+        }
+        public function getTypeVehicule(){
+            return $this->_typeVehicule;
         }
 
         //self : permettre d'accéder à une constante de classe,
@@ -136,6 +141,13 @@
             if(in_array($boite, [self::TRANSMISSION_MAN, self::TRANSMISSION_AUTO]))
             {
                 $this->_boite = $boite;
+            }
+        }
+
+        public function setTypeVehicule($typeVehicule){
+            if($typeVehicule != "")
+            {
+                $this->_typeVehicule = $typeVehicule;
             }
         }
     }

@@ -36,26 +36,18 @@
 
     //créer un manager de voitures
     $vm = new VehiculesManager($pdo);
+    $vehicules = $vm->selectionnerTout();
+    
     // $vm->creerMoto();
     // $vm->creerCamion();
 
-    $voiture = new Voiture(5, Voiture::DECAPOTABLE, "", "Lamborghini", "170CV", "Aventador", 20000, "", Vehicule::TRANSMISSION_AUTO);
-    $vm->creerVoiture($voiture);
-    
-    
-
-    //récupérer un tableau de voitures
-    // $vehicules = $vm->selectionnerTout();
-
     // $camion = new Camion(40, 10, "", "Volvo", "250CV", "FH", 10000, "", Vehicule::TRANSMISSION_AUTO);
-    // $voiture = new Voiture(5, Voiture::DECAPOTABLE, "", "Lamborghini", "170CV", "Aventador", 20000, "", Vehicule::TRANSMISSION_AUTO);
     // $moto = new Moto(2, "Motocross", "", "Yamaha", "10CV", "Super", 15000, "", Vehicule::TRANSMISSION_MAN);
+    // $voiture = new Voiture(5, Voiture::DECAPOTABLE, "", "Lamborghini", "170CV", "Aventador", 20000, "", Vehicule::TRANSMISSION_AUTO);
     
-    
-    // var_dump($camion);
-    // var_dump($voiture);
-    // var_dump($moto);
-
+    // $vm->creerCamion($camion);
+    // $vm->creerMoto($moto);
+    // $vm->creerVoiture($voiture);
 
 
     ?>
@@ -63,7 +55,6 @@
     <div class="container">
         <div class="title mt-5 mb-4">
             <h1>Liste des véhicules<a href="creation_vehicule.php">+</a></h1> 
-            
         </div>
         <div class="row g-2">
             <?php

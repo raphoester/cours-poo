@@ -21,7 +21,7 @@
         //fonction qui permet de sélectionner une voiture à partir de son ID
         public function selectionner($id){
             //requête SQL
-            $resultat = $this->_pdo->query("SELECT * FROM voiture WHERE id = $id;");
+            $resultat = $this->_pdo->query("SELECT * FROM vehicule WHERE id = $id;");
             //transformation du résultat en tableau
             $resultat = $resultat->fetch();
             //hydratation
@@ -32,14 +32,31 @@
         }
 
         public function selectionnerTout(){
-            $resultat = $this->_pdo->query("SELECT * FROM voiture;");
+            $resultat = $this->_pdo->query("SELECT * FROM vehicule;");
             $resultat = $resultat->fetchAll();
 
             $retour = array();
             foreach ($resultat as $vehicule){
-                $vehiculeObjet = new Vehicule();
-                $vehiculeObjet->hydrate($vehicule);
-                array_push($retour, $vehiculeObjet);
+
+                $vehiculeInvalide = false;
+
+                if($vehicule["typeVehicule"] == "Voiture"){
+                    $vehiculeObjet = new Voiture();
+                }
+                else if($vehicule["typeVehicule"] == "Moto"){
+                    $vehiculeObjet = new Moto();
+                }
+                else if($vehicule["typeVehicule"] == "Camion"){
+                    $vehiculeObjet = new Camion();
+                }
+                else{
+                    $vehiculeInvalide = true;
+                }
+
+                if(!$vehiculeInvalide){
+                    $vehiculeObjet->hydrate($vehicule);
+                    array_push($retour, $vehiculeObjet);
+                }
             }
             return $retour;
         }
@@ -61,31 +78,35 @@
         }
 
         public function creerVoiture(Voiture $voiture){
-            //INSERT INTO voiture (marque, puissance, modele, km, img, transmission, nbrePortes, decapotable)
-            //VALUES("volvo", '50CV', 'super', 5000, "", 1, 1);
             $sql = $this->creerDebutRequete();
             $sql .= "nbrePortes, decapotable)";
             $sql .= $this->creerFinRequete($voiture);
-            $sql .= (!empty($voiture->getnbrePortes()) ? $voiture->getnbrePortes(): "NULL").",".
+            //ajout des champs spécifiques à la voiture
+            $sql .= (!empty($voiture->getNbrePortes()) ? $voiture->getNbrePortes(): "NULL").",".
             (!empty($voiture->getDecapotableBool()) ? $voiture->getDecapotableBool(): "NULL").
             ");";
-            echo $sql."<br>";
-
-            // $this->getPdo()->exec($sql);
+            $this->getPdo()->exec($sql);
         }
 
-        public function creerMoto(){
+        public function creerMoto(Moto $moto){
             $sql = $this->creerDebutRequete();
-            // echo $sql."<br>";
-            $sql .= "nbreRoues, types)";
-            // $this->getPdo()->exec($sql);
+            $sql .= "nbreRoues, type)";
+            $sql .= $this->creerFinRequete($moto);
+            $sql .= (!empty($moto->getNbreRoues()) ? $moto->getNbreRoues(): "NULL").",".
+            (!empty($moto->getType()) ? "'".$moto->getType()."'" : "NULL").
+            ");";
+            $this->getPdo()->exec($sql);
         }
 
-        public function creerCamion(){
+        public function creerCamion(Camion $camion){
             $sql = $this->creerDebutRequete();
-            // echo $sql."<br>";
-            // $this->getPdo()->exec($sql);
+            $sql .= "chargeMax, poidsVide, chargeActuelle)";
+            $sql .= $this->creerFinRequete($camion);
+            $sql .= (!empty($camion->getChargeMax()) ? $camion->getChargeMax(): "NULL").",".
+            (!empty($camion->getPoidsVide()) ? $camion->getPoidsVide(): "NULL").",".
+            (!empty($camion->getChargeActuelle()) || $camion->getChargeActuelle() == 0 ? $camion->getChargeActuelle(): "NULL").
+            ");";
+            $this->getPdo()->exec($sql);
         }
-
     }
 ?>

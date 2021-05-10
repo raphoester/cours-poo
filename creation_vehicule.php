@@ -6,6 +6,17 @@
 
     spl_autoload_register("chargerClasse");
 
+    //on essaie de se connecter à la BDD
+    try{
+        $pdo = new PDO('mysql:host=localhost;dbname=voitures;charset=utf8', 'root', '');
+    }
+    //si erreur : on l'affiche
+    catch (Exception $e)
+    {
+        echo 'Erreur : ' . $e->getMessage();
+    }
+
+    $vm = new VehiculesManager($pdo);
 
     if(isset($_POST["marque"])){
         if(isset($_FILES)){
@@ -16,22 +27,24 @@
             move_uploaded_file($_FILES['image']["tmp_name"], $cible);
             $_POST["img"] = $cible;
         }
-        $vehicule = new Vehicule();
-        $vehicule->hydrate($_POST);
-
-        //on essaie de se connecter à la BDD
-        try{
-            $pdo = new PDO('mysql:host=localhost;dbname=voitures;charset=utf8', 'root', '');
+        if($_POST['typeVehicule'] == 'Voiture'){
+            $vehicule = new Voiture();
+            $vehicule->hydrate($_POST);
+            $vm->creerVoiture($vehicule);
         }
-        //si erreur : on l'affiche
-        catch (Exception $e)
-        {
-            echo 'Erreur : ' . $e->getMessage();
+        else if ($_POST['typeVehicule'] == 'Moto'){
+            $vehicule = new Moto();
+            $vehicule->hydrate($_POST);
+            var_dump($vehicule);
+            $vm->creerMoto($vehicule);
         }
-
-        $vm = new VoituresManager($pdo);
-        $vm->creer($voiture);
+        else if ($_POST['typeVehicule'] == 'Camion'){
+            $vehicule = new Camion();
+            $vehicule->hydrate($_POST);
+            $vm->creerCamion($vehicule);
+        }
     }
+
 
 ?>
 
@@ -46,7 +59,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <script src="assets/main.js"></script>
 </head>
 <body>
 <div class="container" style="margin-top: 100px;">
@@ -57,6 +70,7 @@
                     <h1>Nouveau véhicule</h1>
                     <a href="./"><<<</a>
                 </div>
+
                 <div class="card-body">
                     <form action="" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
@@ -87,6 +101,53 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="selecteur_type">Catégorie de véhicule</label>
+                            <select name="typeVehicule" id="selecteur_type">
+                                <option selected="selected" value="Voiture">Voiture</option>
+                                <option value="Camion">Camion</option>
+                                <option value="Moto">Moto</option>
+                            </select>
+                        </div>
+                        <div id="opt-voiture">
+                            <div class="form-group">
+                                <label for="nbrePortes">Nombre de portes</label><br>
+                                <input type="number" id="nbrePortes" name="nbrePortes"><br>
+                            </div>
+                            <div class='form-group'>
+                                <label for="decapotable">Décapotable ?</label>
+                                <div class="form-check" id="decapotable" name="decapotable">
+                                    <input class="form-check-input" type="radio" name="decapotable" id="flexRadioDefault1" value="1" checked>
+                                    <label class="form-check-label" for="decapotable">Oui</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="decapotable" id="flexRadioDefault2" value="0">
+                                    <label class="form-check-label" for="pasdecapotable">Non</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="opt-moto">
+                            <div class="form-group">
+                                <label for="nbreRoues">Nombre de roues</label><br>
+                                <input type="number" id="nbreRoues" name="nbreRoues"><br>
+                            </div>
+                            <div class="form-group">
+                                <label for="type">Type</label><br>
+                                <input type="text" id="type" name="type"><br>
+                            </div>
+                        </div>
+
+                        <div id="opt-camion">
+                            <div class="form-group">
+                                <label for="nbrePortes">Poids à vide</label><br>
+                                <input type="number" id="nbrePortes" name="nbrePortes"><br>
+                            </div>
+                            <div class="form-group">
+                                <label for="nbrePortes">Poids maximal de charge</label><br>
+                                <input type="number" id="nbrePortes" name="nbrePortes"><br>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="image">Image</label><br>
                             <input type="file" id="image" name="image" accept="image/*"><br>
                         </div>
@@ -100,5 +161,29 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(function() {
+        $('#selecteur_type').change(function(){
+
+            $('#opt-camion').hide();
+            $('#opt-voiture').hide();
+            $('#opt-moto').hide();
+            console.log($( "#selecteur_type").val());
+            
+            if($( "#selecteur_type").val() == 'Camion'){
+                $('#opt-camion').show();
+            }
+            else if ($( "#selecteur_type").val() == 'Voiture'){
+                $('#opt-voiture').show();
+            }
+            else if ($( "#selecteur_type").val() == 'Moto'){
+                $('#opt-moto').show();
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
+
