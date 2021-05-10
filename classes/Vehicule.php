@@ -1,5 +1,5 @@
 <?php 
-    class Vehicule{
+    abstract class Vehicule{
         private $_id;
         private $_marque;
         private $_puissance;

@@ -15,8 +15,16 @@ class Voiture extends Vehicule{
     public function getNbrePortes(){
         return $this->_nbrePortes;
     }
-    public function getDecapotable(){
+    public function getDecapotableBool(){
         return $this->_decapotable;
+    }
+    public function getDecapotable(){
+        if($this->_decapotable == self::DECAPOTABLE){
+            return "Décapotable";
+        }
+        else{
+            return "Capot fixe";
+        }
     }
 
     public function setNbrePortes($nbrePortes){

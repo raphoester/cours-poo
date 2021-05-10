@@ -45,18 +45,47 @@
         }
 
         //fonction qui va créer une nouvelle voiture dans la base de données, à partir d'un objet de la classe Voiture
-        public function creer(Vehicule $vehicule){
-            $sql = "INSERT INTO voiture (marque, puissance, modele, km, img, transmission)
-            VALUES(
+        private function creerDebutRequete(){
+            return "INSERT INTO vehicule (marque, puissance, modele, km, img, transmission, ";
+        }
+
+        private function creerFinRequete(Vehicule $vehicule){
+            $sql = " VALUES(
                 '".$vehicule->getMarque()."',".
                 (!empty($vehicule->getPuissance()) ? "'".$vehicule->getPuissance()."'": 'NULL').",".
                 (!empty($vehicule->getModele()) ? "'".$vehicule->getModele()."'": "NULL").",".
                 (!empty($vehicule->getKm()) ? $vehicule->getKm(): "NULL").",".
                 (!empty($vehicule->getImg()) ? "'".$vehicule->getImg()."'": "NULL").",".
-                (!empty($vehicule->getBoiteBool()) ? $vehicule->getBoiteBool(): "NULL")."
-            );";
-            // echo $sql;
-            $this->getPdo()->exec($sql);
+                (!empty($vehicule->getBoiteBool()) ? $vehicule->getBoiteBool(): "NULL").",";
+            return $sql;
         }
+
+        public function creerVoiture(Voiture $voiture){
+            //INSERT INTO voiture (marque, puissance, modele, km, img, transmission, nbrePortes, decapotable)
+            //VALUES("volvo", '50CV', 'super', 5000, "", 1, 1);
+            $sql = $this->creerDebutRequete();
+            $sql .= "nbrePortes, decapotable)";
+            $sql .= $this->creerFinRequete($voiture);
+            $sql .= (!empty($voiture->getnbrePortes()) ? $voiture->getnbrePortes(): "NULL").",".
+            (!empty($voiture->getDecapotableBool()) ? $voiture->getDecapotableBool(): "NULL").
+            ");";
+            echo $sql."<br>";
+
+            // $this->getPdo()->exec($sql);
+        }
+
+        public function creerMoto(){
+            $sql = $this->creerDebutRequete();
+            // echo $sql."<br>";
+            $sql .= "nbreRoues, types)";
+            // $this->getPdo()->exec($sql);
+        }
+
+        public function creerCamion(){
+            $sql = $this->creerDebutRequete();
+            // echo $sql."<br>";
+            // $this->getPdo()->exec($sql);
+        }
+
     }
 ?>

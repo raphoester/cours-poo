@@ -36,11 +36,28 @@
 
     //créer un manager de voitures
     $vm = new VehiculesManager($pdo);
-    //récupérer un tableau de voitures
-    $vehicules = $vm->selectionnerTout();
+    // $vm->creerMoto();
+    // $vm->creerCamion();
 
-    $camion = new Camion(40, 10, "", "Volvo", "250CV", "FH", 10000, "", Vehicule::TRANSMISSION_AUTO);
-    var_dump($camion);
+    $voiture = new Voiture(5, Voiture::DECAPOTABLE, "", "Lamborghini", "170CV", "Aventador", 20000, "", Vehicule::TRANSMISSION_AUTO);
+    $vm->creerVoiture($voiture);
+    
+    
+
+    //récupérer un tableau de voitures
+    // $vehicules = $vm->selectionnerTout();
+
+    // $camion = new Camion(40, 10, "", "Volvo", "250CV", "FH", 10000, "", Vehicule::TRANSMISSION_AUTO);
+    // $voiture = new Voiture(5, Voiture::DECAPOTABLE, "", "Lamborghini", "170CV", "Aventador", 20000, "", Vehicule::TRANSMISSION_AUTO);
+    // $moto = new Moto(2, "Motocross", "", "Yamaha", "10CV", "Super", 15000, "", Vehicule::TRANSMISSION_MAN);
+    
+    
+    // var_dump($camion);
+    // var_dump($voiture);
+    // var_dump($moto);
+
+
+
     ?>
 
     <div class="container">
