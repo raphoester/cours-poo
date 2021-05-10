@@ -55,6 +55,7 @@
             <div class="card">
                 <div class="card-header">
                     <h1>Nouvelle voiture</h1>
+                    <a href="./"><<<</a>
                 </div>
                 <div class="card-body">
                     <form action="" method="POST" enctype="multipart/form-data">

@@ -39,16 +39,12 @@
     //récupérer un tableau de voitures
     $voitures = $vm->selectionnerTout();
 
-    //création artificielle de plusieurs instances d'objets de la classe voiture, pour l'affichage
-    // $voiture1 = new Voiture(1, "Audi", "50CV", "A3", 4000, 'img/audi_a3.jpg', Voiture::TRANSMISSION_MAN);
-    // $voiture2 = new Voiture(2, "Opel", "70CV", "1900GT", 70000, 'img/opel_1900GT.jpg', Voiture::TRANSMISSION_MAN);
-    // $voiture3 = new Voiture(3, "Chevrolet", "250CV", "Camaro", 35000, 'img/chevrolet_camaro.jpg', Voiture::TRANSMISSION_AUTO);
-
     ?>
 
     <div class="container">
         <div class="title mt-5 mb-4">
             <h1>Liste des voitures<a href="creation_voiture.php">+</a></h1> 
+            
         </div>
         <div class="row g-2">
             <?php
