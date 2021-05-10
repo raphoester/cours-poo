@@ -63,12 +63,13 @@
 
         //fonction qui va créer une nouvelle voiture dans la base de données, à partir d'un objet de la classe Voiture
         private function creerDebutRequete(){
-            return "INSERT INTO vehicule (marque, puissance, modele, km, img, transmission, ";
+            return "INSERT INTO vehicule (typeVehicule, marque, puissance, modele, km, img, transmission, ";
         }
 
-        private function creerFinRequete(Vehicule $vehicule){
+        private function creerCoeurRequete(Vehicule $vehicule){
             $sql = " VALUES(
-                '".$vehicule->getMarque()."',".
+                '".$vehicule->getTypeVehicule()."',".
+                "'".$vehicule->getMarque()."',".
                 (!empty($vehicule->getPuissance()) ? "'".$vehicule->getPuissance()."'": 'NULL').",".
                 (!empty($vehicule->getModele()) ? "'".$vehicule->getModele()."'": "NULL").",".
                 (!empty($vehicule->getKm()) ? $vehicule->getKm(): "NULL").",".
@@ -80,18 +81,19 @@
         public function creerVoiture(Voiture $voiture){
             $sql = $this->creerDebutRequete();
             $sql .= "nbrePortes, decapotable)";
-            $sql .= $this->creerFinRequete($voiture);
+            $sql .= $this->creerCoeurRequete($voiture);
             //ajout des champs spécifiques à la voiture
             $sql .= (!empty($voiture->getNbrePortes()) ? $voiture->getNbrePortes(): "NULL").",".
             (!empty($voiture->getDecapotableBool()) ? $voiture->getDecapotableBool(): "NULL").
             ");";
+            $sql .= $this->creerFinRequete("Voiture");
             $this->getPdo()->exec($sql);
         }
 
         public function creerMoto(Moto $moto){
             $sql = $this->creerDebutRequete();
             $sql .= "nbreRoues, type)";
-            $sql .= $this->creerFinRequete($moto);
+            $sql .= $this->creerCoeurRequete($moto);
             $sql .= (!empty($moto->getNbreRoues()) ? $moto->getNbreRoues(): "NULL").",".
             (!empty($moto->getType()) ? "'".$moto->getType()."'" : "NULL").
             ");";
@@ -101,7 +103,7 @@
         public function creerCamion(Camion $camion){
             $sql = $this->creerDebutRequete();
             $sql .= "chargeMax, poidsVide, chargeActuelle)";
-            $sql .= $this->creerFinRequete($camion);
+            $sql .= $this->creerCoeurRequete($camion);
             $sql .= (!empty($camion->getChargeMax()) ? $camion->getChargeMax(): "NULL").",".
             (!empty($camion->getPoidsVide()) ? $camion->getPoidsVide(): "NULL").",".
             (!empty($camion->getChargeActuelle()) || $camion->getChargeActuelle() == 0 ? $camion->getChargeActuelle(): "NULL").
