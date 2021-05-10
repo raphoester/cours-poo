@@ -39,6 +39,8 @@
     //récupérer un tableau de voitures
     $vehicules = $vm->selectionnerTout();
 
+    $camion = new Camion(40, 10, "", "Volvo", "250CV", "FH", 10000, "", Vehicule::TRANSMISSION_AUTO);
+    var_dump($camion);
     ?>
 
     <div class="container">

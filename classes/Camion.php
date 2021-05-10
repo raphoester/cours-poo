@@ -6,8 +6,8 @@
 
         public const CHARGE_VIDE = 0;
 
-        public function __construct($chargeMax, $poidsVide){
-            parent::__construct();
+        public function __construct($chargeMax="", $poidsVide="", $id="", $marque="", $puissance="", $modele="", $km="", $img="", $boite=""){
+            parent::__construct($id, $marque, $puissance, $modele, $km, $img, $boite);
             $this->setChargeMax($chargeMax);
             $this->setPoidsVide($poidsVide);
             $this->setChargeActuelle(self::CHARGE_VIDE);
@@ -40,15 +40,15 @@
             try{
                 $poidsVide = intval($poidsVide);
             }finally{}
-            if(is_integer($poidsVide) && $poidsVide >= 5 && poidsVide <= 15){
+            if(is_integer($poidsVide) && $poidsVide >= 5 && $poidsVide <= 15){
                 $this->_poidsVide = $poidsVide;
             }
         }
-        public function setChargeActuelle(){
+        public function setChargeActuelle($chargeActuelle){
             try{
                 $chargeActuelle = intval($chargeActuelle);
             }finally{}
-            if(is_integer($chargeActuelle) && $chargeActuelle > 0 && chargeActuelle <= 70){
+            if(is_integer($chargeActuelle) && $chargeActuelle >= 0 && $chargeActuelle <= 70){
                 $this->_chargeActuelle = $chargeActuelle;
             }
         }
