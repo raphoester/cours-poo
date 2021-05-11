@@ -54,6 +54,7 @@
             $sql .= (!empty($voiture->getNbrePortes()) ? $voiture->getNbrePortes(): "NULL").",".
             (!empty($voiture->getDecapotableBool()) ? $voiture->getDecapotableBool(): "NULL").
             ");";
+            echo $sql;
             $this->getPdo()->exec($sql);
         }
 
@@ -80,13 +81,13 @@
 
         //fonction qui va créer une nouvelle voiture dans la base de données, à partir d'un objet de la classe Voiture
         private function creerDebutRequete(){
-            return "INSERT INTO vehicule (typeVehicule, marque, puissance, modele, km, img, transmission, ";
+            return "INSERT INTO vehicule (typeVehicule, idMarque, puissance, modele, km, img, transmission, ";
         }
 
         private function creerCoeurRequete(Vehicule $vehicule){
             $sql = " VALUES(
                 '".$vehicule->getTypeVehicule()."',".
-                "'".$vehicule->getMarque()."',".
+                "'".$vehicule->getMarque()->getId()."',".
                 (!empty($vehicule->getPuissance()) ? "'".$vehicule->getPuissance()."'": 'NULL').",".
                 (!empty($vehicule->getModele()) ? "'".$vehicule->getModele()."'": "NULL").",".
                 (!empty($vehicule->getKm()) ? $vehicule->getKm(): "NULL").",".

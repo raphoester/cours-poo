@@ -18,7 +18,7 @@
 
     $vm = new VehiculesManager($pdo);
 
-    if(isset($_POST["marque"])){
+    if(isset($_POST["idMarque"])){
         if(isset($_FILES)){
             $nom = $_FILES['image']['name'];
             $ext = substr(strrchr($nom, '.'), 1);
@@ -26,6 +26,20 @@
             
             move_uploaded_file($_FILES['image']["tmp_name"], $cible);
             $_POST["img"] = $cible;
+        }
+
+        if(isset($_POST["idMarque"]) && $_POST['idMarque'] == "__NOUVELLE__") {
+            //créer une nouvelle marque.
+            if(isset($_POST["nom"]) && $_POST["nom"] != ""){
+
+                $marque = new Marque();
+                // var_dump($_POST);
+                $marque->hydrate($_POST);
+
+                $mm = new MarquesManager($pdo);
+                $id_nouvelle_marque = $mm->creerMarque($marque);
+                $_POST['idMarque'] = $id_nouvelle_marque;
+            }
         }
 
         if($_POST['typeVehicule'] == 'Voiture'){
@@ -74,30 +88,27 @@
                 <div class="card-body">
                     <form action="" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
-                            <label for="marque">Marque</label><br>
-                            <input type="text" id="marque" name="marque"><br>
-                        </div>
-                        <!-- <div class="form-group">
                             <label for="selecteur_marque">Marque</label><br>
-                            <select name="marque" id="selecteur_marque">
+                            <select name="idMarque" id="selecteur_marque">
                                 <?php 
-                                $marques = array(1, 2, 3, 4, 5);
+                                $mm = new MarquesManager($pdo);
+                                $marques = $mm->selectionnerTout();
                                 foreach ($marques as $marque)
                                 {
                                     ?>
-                                    <option value="<?php echo $marque; ?>"> <?php echo $marque; ?></option>
+                                    <option value="<?php echo $marque->getId(); ?>"> <?php echo $marque->getNom(); ?></option>
                                     <?php 
                                 }
                                 ?>
-                                <option id='nouvelle_marque' value="__NOUVELLE__">Ajouter une nouvelle marque...</option>
+                                <option selected='selected' id='nouvelle_marque' value="__NOUVELLE__">Ajouter une nouvelle marque...</option>
                             </select>
                             
                             <div id="nom_nouvelle_marque" class="form-group">
                                 <br>
                                 <label for="champ_nouvelle_marque">Nom de la nouvelle marque</label><br>
-                                <input type="text" id="champ_nouvelle_marque" name="nomNouvMarque"><br>
+                                <input type="text" id="champ_nouvelle_marque" name="nom"><br>
                             </div>
-                        </div> -->
+                        </div>
                         <div class="form-group">
                             <label for="modele">Modèle</label><br>
                             <input type="text" id="modele" name="modele"><br>
@@ -187,7 +198,6 @@
     $(function() {
         $('#opt-camion').hide();
         $('#opt-moto').hide();
-        $('#nom_nouvelle_marque').hide();
 
         $('#selecteur_type').change(function(){
 

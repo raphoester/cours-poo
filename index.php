@@ -67,7 +67,7 @@
                                 <img style="width: 200px; object-fit: cover; height: 200px;" class="d-flex align-self-start img-fluid" src="<?php echo $vehicule->getImg()?>">
                             </div>
                             <div style="margin-top : 30px;">
-                                <h4><?php echo $vehicule->getMarque()." ".$vehicule->getModele()?></h4>
+                                <h4><?php echo $vehicule->getMarque()->getNom()." ".$vehicule->getModele()?></h4>
                                 <p> <?php echo $vehicule->getPuissance()?> </p>
                                 <p> <?php echo $vehicule->getKm() ?> KM </p>
                                 <p> Transmission : <?php echo $vehicule->getBoite() ?> <p>

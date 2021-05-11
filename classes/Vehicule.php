@@ -1,7 +1,7 @@
 <?php 
     abstract class Vehicule{
         private $_id;
-        private $_marque;
+        private $_idMarque;
         private $_puissance;
         private $_modele;
         private $_km;
@@ -11,9 +11,9 @@
 
         //constructeur
         //permet d'initialiser chaque instance de l'objet créé
-        public function __construct($id="", $marque="", $puissance="", $modele="", $km="", $img="", $boite="", $typeVehicule=""){
+        public function __construct($id="", $idMarque="", $puissance="", $modele="", $km="", $img="", $boite="", $typeVehicule=""){
             $this->setId($id);
-            $this->setMarque($marque);
+            $this->setIdMarque($idMarque);
             $this->setPuissance($puissance);
             $this->setModele($modele);
             $this->setKm($km);
@@ -43,8 +43,19 @@
         public function getId(){
             return $this->_id;
         }
+        public function getIdMarque(){
+            return $this->_idMarque;
+        }
         public function getMarque(){
-            return $this->_marque;
+            try{
+                $pdo = new PDO('mysql:host=localhost;dbname=voitures;charset=utf8', 'root', '');
+            }
+            catch (Exception $e)
+            {
+                echo 'Erreur : ' . $e->getMessage();
+            }
+            $mm = New MarquesManager($pdo);
+            return $mm->selectionnerMarque($this->getIdMarque());
         }
         public function getPuissance(){
             return $this->_puissance;
@@ -94,10 +105,10 @@
             }
         }
 
-        public function setMarque($marque){
-            if($marque != "")
+        public function setIdMarque($idMarque){
+            if($idMarque != "")
             {
-                $this->_marque = $marque;
+                $this->_idMarque = $idMarque;
             }
         }
         public function setPuissance($puissance){

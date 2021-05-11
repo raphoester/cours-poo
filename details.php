@@ -45,7 +45,7 @@
         <div class="col-md-4">
             <br>
             <ul class="list-group" style="float: left; min-width: 500px;">
-                <li class="list-group-item">Marque : <?php echo $vehicule->getMarque() ;?></li>
+                <li class="list-group-item">Marque : <?php echo $vehicule->getMarque()->getNom() ;?></li>
                 <li class="list-group-item">Modèle : <?php echo $vehicule->getModele() ;?></li>
                 <li class="list-group-item">Puissance : <?php echo $vehicule->getPuissance() ;?></li>
                 <li class="list-group-item">KM : <?php echo $vehicule->getKm() ;?></li>
@@ -71,7 +71,6 @@
                             <li class="list-group-item">Charge actuelle : <?php echo $vehicule->getChargeActuelle() ;?></li>
                         <?php
                     }
-
                 ?>
             </ul>
         </div>
