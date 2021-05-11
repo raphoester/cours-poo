@@ -40,7 +40,7 @@
 
         //GETTERS (accesseurs)
         //permet d'accéder à la donnée de manière sécurisée
-        public function gedId(){
+        public function getId(){
             return $this->_id;
         }
         public function getMarque(){

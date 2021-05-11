@@ -60,6 +60,7 @@
             <?php
             foreach ($vehicules as $vehicule) {
                 ?>
+                
                     <div class="col-6 mb-1" style="width: 100px;">
                         <div class="p-3 border bg-light" style="display: flex;">
                             <div style="margin-right: 100px;">
@@ -70,7 +71,8 @@
                                 <p> <?php echo $vehicule->getPuissance()?> </p>
                                 <p> <?php echo $vehicule->getKm() ?> KM </p>
                                 <p> Transmission : <?php echo $vehicule->getBoite() ?> <p>
-                                <p><a href="<?php echo $vehicule->getImg()?>">Détails</a></p>
+                                <p><a href="details.php?id=<?php echo $vehicule->getId()?>">Détails</a></p>
+                                
                             </div>
                         </div>
                     </div>

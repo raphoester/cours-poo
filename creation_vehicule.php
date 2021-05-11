@@ -78,6 +78,27 @@
                             <input type="text" id="marque" name="marque"><br>
                         </div>
                         <div class="form-group">
+                            <label for="selecteur_marque">Marque</label><br>
+                            <select name="marque" id="selecteur_marque">
+                                <?php 
+                                $marques = array(1, 2, 3, 4, 5);
+                                foreach ($marques as $marque)
+                                {
+                                    ?>
+                                    <option value="<?php echo $marque; ?>"> <?php echo $marque; ?></option>
+                                    <?php 
+                                }
+                                ?>
+                                <option id='nouvelle_marque' value="__NOUVELLE__">Ajouter une nouvelle marque...</option>
+                            </select>
+                            
+                            <div id="nom_nouvelle_marque" class="form-group">
+                                <br>
+                                <label for="champ_nouvelle_marque">Nom de la nouvelle marque</label><br>
+                                <input type="text" id="champ_nouvelle_marque" name="nomNouvMarque"><br>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="modele">Modèle</label><br>
                             <input type="text" id="modele" name="modele"><br>
                         </div>
@@ -164,6 +185,10 @@
 
 <script>
     $(function() {
+        $('#opt-camion').hide();
+        $('#opt-moto').hide();
+        $('#nom_nouvelle_marque').hide();
+
         $('#selecteur_type').change(function(){
 
             $('#opt-camion').hide();
@@ -181,7 +206,15 @@
                 $('#opt-moto').show();
             }
         });
+
+        $('#selecteur_marque').change(function(){
+            $('#nom_nouvelle_marque').hide();
+            if($( "#selecteur_marque" ).val() == '__NOUVELLE__'){
+                $('#nom_nouvelle_marque').show();
+            }
+        });
     });
+
 </script>
 
 </body>
