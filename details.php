@@ -51,6 +51,28 @@
                 <li class="list-group-item">KM : <?php echo $vehicule->getKm() ;?></li>
                 <li class="list-group-item">Transmission : <?php echo $vehicule->getBoite() ;?></li>
                 <li class="list-group-item">Type de véhicule : <?php echo $vehicule->getTypeVehicule() ;?></li>
+                <?php
+                    if($vehicule->getTypeVehicule() == "Voiture"){
+                        ?>
+                            <li class="list-group-item">Décapotable : <?php echo $vehicule->getDecapotableOuiNon() ;?></li>
+                            <li class="list-group-item">Nombre de portes : <?php echo $vehicule->getNbrePortes() ;?></li>
+                        <?php
+                    }
+                    else if($vehicule->getTypeVehicule() == "Moto"){
+                        ?>
+                            <li class="list-group-item">Nombre de roues : <?php echo $vehicule->getNbreRoues() ;?></li>
+                            <li class="list-group-item">Type : <?php echo $vehicule->getType() ;?></li>
+                        <?php
+                    }
+                    else if($vehicule->getTypeVehicule() == "Camion"){
+                        ?>
+                            <li class="list-group-item">Charge maximale : <?php echo $vehicule->getChargeMax() ;?></li>
+                            <li class="list-group-item">Poids à vide : <?php echo $vehicule->getPoidsVide() ;?></li>
+                            <li class="list-group-item">Charge actuelle : <?php echo $vehicule->getChargeActuelle() ;?></li>
+                        <?php
+                    }
+
+                ?>
             </ul>
         </div>
     </div>

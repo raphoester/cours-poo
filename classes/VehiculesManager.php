@@ -73,7 +73,7 @@
             $sql .= $this->creerCoeurRequete($camion);
             $sql .= (!empty($camion->getChargeMax()) ? $camion->getChargeMax(): "NULL").",".
             (!empty($camion->getPoidsVide()) ? $camion->getPoidsVide(): "NULL").",".
-            (!empty($camion->getChargeActuelle()) || $camion->getChargeActuelle() == 0 ? $camion->getChargeActuelle(): "NULL").
+            (!empty($camion->getChargeActuelle()) ? $camion->getChargeActuelle(): "NULL").
             ");";
             $this->getPdo()->exec($sql);
         }

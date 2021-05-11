@@ -26,6 +26,14 @@ class Voiture extends Vehicule{
             return "Capot fixe";
         }
     }
+    public function getDecapotableOuiNon(){
+        if($this->_decapotable == self::DECAPOTABLE){
+            return "Oui";
+        }
+        else{
+            return "Non";
+        }
+    }
 
     public function setNbrePortes($nbrePortes){
         try{

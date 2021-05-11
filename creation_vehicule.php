@@ -27,6 +27,7 @@
             move_uploaded_file($_FILES['image']["tmp_name"], $cible);
             $_POST["img"] = $cible;
         }
+
         if($_POST['typeVehicule'] == 'Voiture'){
             $vehicule = new Voiture();
             $vehicule->hydrate($_POST);
@@ -159,12 +160,12 @@
 
                         <div id="opt-camion">
                             <div class="form-group">
-                                <label for="nbrePortes">Poids à vide</label><br>
-                                <input type="number" id="nbrePortes" name="nbrePortes"><br>
+                                <label for="poidsVide">Poids à vide</label><br>
+                                <input type="number" id="poidsVide" name="poidsVide"><br>
                             </div>
                             <div class="form-group">
-                                <label for="nbrePortes">Poids maximal de charge</label><br>
-                                <input type="number" id="nbrePortes" name="nbrePortes"><br>
+                                <label for="chargeMax">Poids maximal de charge</label><br>
+                                <input type="number" id="chargeMax" name="chargeMax"><br>
                             </div>
                         </div>
                         <div class="form-group">
