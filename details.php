@@ -6,7 +6,6 @@
     function chargerClasse($classe){
         require('classes/'.$classe.'.php');
     }
-
     spl_autoload_register('chargerClasse');
 
     try{
@@ -17,6 +16,9 @@
 
     $vm = new VehiculesManager($pdo);
     $vehicule = $vm->selectionner($_GET['id']);
+    if($vehicule == false){
+        header("Location: 404.php");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +36,7 @@
 <div class="container">
     <div class="mt-5" >
         <a href="index.php"><<<</a>
-        <h1 >Détails sur le véhicule #<?php echo $vehicule->getId(); ?></h1>
+        <h1>Détails sur le véhicule #<?php echo $vehicule->getId(); ?></h1>
     </div>
     <div class="row">
         <div class="col-md-6 row-img">
@@ -49,7 +51,6 @@
                 <li class="list-group-item">KM : <?php echo $vehicule->getKm() ;?></li>
                 <li class="list-group-item">Transmission : <?php echo $vehicule->getBoite() ;?></li>
                 <li class="list-group-item">Type de véhicule : <?php echo $vehicule->getTypeVehicule() ;?></li>
-
             </ul>
         </div>
     </div>

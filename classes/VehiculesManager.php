@@ -22,6 +22,9 @@
         public function selectionner($id){
             $resultat = $this->_pdo->query("SELECT * FROM vehicule WHERE id = $id;");
             $resultat = $resultat->fetch();
+            if(gettype($resultat) == "boolean"){
+                header("Location: ../404.php");
+            }
             if($vehiculeObjet = $this->verifType($resultat)){
                 return($vehiculeObjet);
             }
