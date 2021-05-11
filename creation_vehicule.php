@@ -35,7 +35,6 @@
         else if ($_POST['typeVehicule'] == 'Moto'){
             $vehicule = new Moto();
             $vehicule->hydrate($_POST);
-            var_dump($vehicule);
             $vm->creerMoto($vehicule);
         }
         else if ($_POST['typeVehicule'] == 'Camion'){
@@ -77,7 +76,7 @@
                             <label for="marque">Marque</label><br>
                             <input type="text" id="marque" name="marque"><br>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="selecteur_marque">Marque</label><br>
                             <select name="marque" id="selecteur_marque">
                                 <?php 
@@ -97,7 +96,7 @@
                                 <label for="champ_nouvelle_marque">Nom de la nouvelle marque</label><br>
                                 <input type="text" id="champ_nouvelle_marque" name="nomNouvMarque"><br>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <label for="modele">Modèle</label><br>
                             <input type="text" id="modele" name="modele"><br>

@@ -20,15 +20,14 @@
         
         //fonction qui permet de sélectionner une voiture à partir de son ID
         public function selectionner($id){
-            //requête SQL
             $resultat = $this->_pdo->query("SELECT * FROM vehicule WHERE id = $id;");
-            //transformation du résultat en tableau
             $resultat = $resultat->fetch();
-            //hydratation
-            $vehiculeObjet = new Vehicule();
-            $vehiculeObjet->hydrate($resultat);
-            //return du résultat
-            return $vehiculeObjet;
+            if($vehiculeObjet = $this->verifType($resultat)){
+                return($vehiculeObjet);
+            }
+            else{
+                return false;
+            }
         }
 
         public function selectionnerTout(){
@@ -37,45 +36,11 @@
 
             $retour = array();
             foreach ($resultat as $vehicule){
-
-                $vehiculeInvalide = false;
-
-                if($vehicule["typeVehicule"] == "Voiture"){
-                    $vehiculeObjet = new Voiture();
-                }
-                else if($vehicule["typeVehicule"] == "Moto"){
-                    $vehiculeObjet = new Moto();
-                }
-                else if($vehicule["typeVehicule"] == "Camion"){
-                    $vehiculeObjet = new Camion();
-                }
-                else{
-                    $vehiculeInvalide = true;
-                }
-
-                if(!$vehiculeInvalide){
-                    $vehiculeObjet->hydrate($vehicule);
+                if($vehiculeObjet = $this->verifType($vehicule)){
                     array_push($retour, $vehiculeObjet);
                 }
             }
             return $retour;
-        }
-
-        //fonction qui va créer une nouvelle voiture dans la base de données, à partir d'un objet de la classe Voiture
-        private function creerDebutRequete(){
-            return "INSERT INTO vehicule (typeVehicule, marque, puissance, modele, km, img, transmission, ";
-        }
-
-        private function creerCoeurRequete(Vehicule $vehicule){
-            $sql = " VALUES(
-                '".$vehicule->getTypeVehicule()."',".
-                "'".$vehicule->getMarque()."',".
-                (!empty($vehicule->getPuissance()) ? "'".$vehicule->getPuissance()."'": 'NULL').",".
-                (!empty($vehicule->getModele()) ? "'".$vehicule->getModele()."'": "NULL").",".
-                (!empty($vehicule->getKm()) ? $vehicule->getKm(): "NULL").",".
-                (!empty($vehicule->getImg()) ? "'".$vehicule->getImg()."'": "NULL").",".
-                (!empty($vehicule->getBoiteBool()) ? $vehicule->getBoiteBool(): "NULL").",";
-            return $sql;
         }
 
         public function creerVoiture(Voiture $voiture){
@@ -86,7 +51,6 @@
             $sql .= (!empty($voiture->getNbrePortes()) ? $voiture->getNbrePortes(): "NULL").",".
             (!empty($voiture->getDecapotableBool()) ? $voiture->getDecapotableBool(): "NULL").
             ");";
-            $sql .= $this->creerFinRequete("Voiture");
             $this->getPdo()->exec($sql);
         }
 
@@ -109,6 +73,47 @@
             (!empty($camion->getChargeActuelle()) || $camion->getChargeActuelle() == 0 ? $camion->getChargeActuelle(): "NULL").
             ");";
             $this->getPdo()->exec($sql);
+        }
+
+        //fonction qui va créer une nouvelle voiture dans la base de données, à partir d'un objet de la classe Voiture
+        private function creerDebutRequete(){
+            return "INSERT INTO vehicule (typeVehicule, marque, puissance, modele, km, img, transmission, ";
+        }
+
+        private function creerCoeurRequete(Vehicule $vehicule){
+            $sql = " VALUES(
+                '".$vehicule->getTypeVehicule()."',".
+                "'".$vehicule->getMarque()."',".
+                (!empty($vehicule->getPuissance()) ? "'".$vehicule->getPuissance()."'": 'NULL').",".
+                (!empty($vehicule->getModele()) ? "'".$vehicule->getModele()."'": "NULL").",".
+                (!empty($vehicule->getKm()) ? $vehicule->getKm(): "NULL").",".
+                (!empty($vehicule->getImg()) ? "'".$vehicule->getImg()."'": "NULL").",".
+                (!empty($vehicule->getBoiteBool()) ? $vehicule->getBoiteBool(): "NULL").",";
+            return $sql;
+        }
+
+        private function verifType(Array $vehicule){
+            $vehiculeInvalide = false;
+            if($vehicule["typeVehicule"] == "Voiture"){
+                $vehiculeObjet = new Voiture();
+            }
+            else if($vehicule["typeVehicule"] == "Moto"){
+                $vehiculeObjet = new Moto();
+            }
+            else if($vehicule["typeVehicule"] == "Camion"){
+                $vehiculeObjet = new Camion();
+            }
+            else{
+                $vehiculeInvalide = true;
+            }
+            
+            if(!$vehiculeInvalide){
+                $vehiculeObjet->hydrate($vehicule);
+                return $vehiculeObjet;
+            }
+            else{
+                return false;
+            }
         }
     }
 ?>
